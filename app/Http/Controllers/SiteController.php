@@ -10,4 +10,14 @@ class SiteController extends Controller
     {
         return "Hello";
     }
+
+    public function actionContact()
+    {
+        return "actionContact";
+    }
+
+    public function actionAbout()
+    {
+        return "actionAbout";
+    }
 }

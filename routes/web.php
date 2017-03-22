@@ -13,6 +13,10 @@
 
 Auth::routes();
 
+Route::match(['get', 'post'], 'contacts', 'SiteController@actionContact');
+
+Route::match(['get', 'post'], 'about', 'SiteController@actionAbout');
+
 Route::match(['get', 'post'], '/', 'SiteController@actionIndex');
 
 Route::get('/home', 'HomeController@index');
