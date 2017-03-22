@@ -11,12 +11,12 @@
 |
 */
 
+//Auth
 Auth::routes();
-
+//About store
 Route::match(['get', 'post'], 'contacts', 'SiteController@actionContact');
-
 Route::match(['get', 'post'], 'about', 'SiteController@actionAbout');
-
+//Main page
 Route::match(['get', 'post'], '/', 'SiteController@actionIndex');
 
 Route::get('/home', 'HomeController@index');
