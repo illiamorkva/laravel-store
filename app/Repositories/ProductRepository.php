@@ -27,7 +27,7 @@ class ProductRepository
 
     /**
      * Returns product with specified id
-     * @param integer $id <p>id product</p>
+     * @param integer $id <p>Id product</p>
      * @return array <p>Object of information about the product</p>
      */
     public function getProductById($id)
