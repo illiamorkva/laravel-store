@@ -13,6 +13,8 @@
 
 //Auth
 Auth::routes();
+//Product
+Route::match(['get', 'post'], 'product/{id}', 'ProductController@actionView')->where('id', '[0-9]+');
 //About store
 Route::match(['get', 'post'], 'contacts', 'SiteController@actionContact');
 Route::match(['get', 'post'], 'about', 'SiteController@actionAbout');
