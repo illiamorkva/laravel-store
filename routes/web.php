@@ -15,6 +15,11 @@
 Auth::routes();
 //Product
 Route::match(['get', 'post'], 'product/{id}', 'ProductController@actionView')->where('id', '[0-9]+');
+//Catalog
+Route::match(['get', 'post'], 'catalog', 'CatalogController@actionIndex');
+//Category products
+Route::match(['get', 'post'], 'category/{id}/page-{page}', 'CatalogController@actionCategory')->where(['id' => '[0-9]+', 'page' => '[0-9]+']);
+Route::match(['get', 'post'], 'category/{id}', 'CatalogController@actionCategory')->where('id', '[0-9]+');
 //About store
 Route::match(['get', 'post'], 'contacts', 'SiteController@actionContact');
 Route::match(['get', 'post'], 'about', 'SiteController@actionAbout');

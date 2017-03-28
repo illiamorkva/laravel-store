@@ -26,6 +26,28 @@ class ProductRepository
     }
 
     /**
+     * Returns a list of products in the specified category
+     * @param type $categoryId <p>id category</p>
+     * @param type $page [optional] <p>The page number</p>
+     * @return type <p>An array of goods</p>
+     */
+    public function getProductsListByCategory($categoryId, $page = 1)
+    {
+        $limit = self::SHOW_BY_DEFAULT;
+        // The offset (to request)
+        $offset = ($page - 1) * self::SHOW_BY_DEFAULT;
+
+        $products = Product::where('status', 1)
+            ->where('category_id', $categoryId)
+            ->orderBy('id', 'asc')
+            ->take($limit)
+            ->skip($offset)
+            ->get(['id', 'name', 'price', 'is_new']);
+
+        return $products;
+    }
+
+    /**
      * Returns product with specified id
      * @param integer $id <p>Id product</p>
      * @return array <p>Object of information about the product</p>
@@ -33,6 +55,18 @@ class ProductRepository
     public function getProductById($id)
     {
         return Product::findOrFail($id);
+    }
+
+    /**
+     * Return the number of items in the specified category
+     * @param integer $categoryId
+     * @return integer
+     */
+    public function getTotalProductsInCategory($categoryId)
+    {
+        return Product::where('status', 1)
+            ->where('category_id', $categoryId)
+            ->count();
     }
 
     /**
