@@ -2,7 +2,7 @@
 
 /**
  * Class Cart
- * Component to basket
+ * Component basket
  */
 class Cart
 {
@@ -51,7 +51,7 @@ class Cart
     }
 
     /**
-     * Returns an array of the IDs and number of items in the cart<br/>
+     * Returns an array of the id's and number of items in the cart<br/>
      * If there are no goods, return false;
      * @return mixed: boolean or array
      */
