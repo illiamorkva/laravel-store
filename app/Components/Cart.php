@@ -94,7 +94,7 @@ class Cart
 
     /**
      * Removes the item with the specified id from the basket
-     * @param integer $id <p>id товара</p>
+     * @param integer $id <p>id product</p>
      */
     public static function deleteProduct($id)
     {
