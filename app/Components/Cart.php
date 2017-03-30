@@ -78,7 +78,7 @@ class Cart
         $total = 0;
         if ($productsInCart) {
             foreach ($products as $item) {
-                $total += $item['price'] * $productsInCart[$item['id']];
+                $total += $item->price * $productsInCart[$item->id];
             }
         }
 
