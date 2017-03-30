@@ -1,5 +1,8 @@
 <?php
 
+namespace App\Components;
+use Illuminate\Support\Facades\Session;
+
 /**
  * Class Cart
  * Component basket
