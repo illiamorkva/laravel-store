@@ -159,6 +159,12 @@
 <script src="/js/jquery.prettyPhoto.js"></script>
 <script src="/js/main.js"></script>
 <script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     $(document).ready(function(){
         $(".add-to-cart").click(function () {
             var id = $(this).attr("data-id");
