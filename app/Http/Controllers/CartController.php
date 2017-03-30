@@ -51,6 +51,44 @@ class CartController extends Controller
         echo Cart::addProduct($id);
     }
 
+    /**
+     * Action to remove the item from your cart
+     * @param integer $id <p>id product</p>
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function actionDelete($id)
+    {
+        Cart::deleteProduct($id);
+
+        return redirect("/cart");
+    }
+
+    /**
+     * Action for the page "Shopping Cart"
+     */
+    public function actionIndex()
+    {
+        // List of categories for left menu
+        $categories = $this->categoryRepository->getCategoriesList();
+
+        // Get the IDs and number of items in the cart
+        $productsInCart = Cart::getProducts();
+
+        $products = null;
+        $totalPrice = 0;
+
+        if ($productsInCart) {
+            $productsIds = array_keys($productsInCart);
+            $products = $this->productRepository->getProductsByIds($productsIds);
+            $totalPrice = Cart::getTotalPrice($products);
+        }
+
+        return view('cart.index', [
+            'categories' => $categories, 'products' => $products, 'totalPrice' => $totalPrice,
+            'productsInCart' => $productsInCart
+        ]);
+    }
+
 
 
 

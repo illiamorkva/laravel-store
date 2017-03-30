@@ -70,6 +70,20 @@ class ProductRepository
     }
 
     /**
+     * Returns a list of products with specified ids
+     * @param array $idsArray <p>An array of ids</p>
+     * @return array <p>Array list of goods</p>
+     */
+    public function getProductsByIds($idsArray)
+    {
+        $products = Product::where('status', 1)
+            ->whereIn('id', $idsArray)
+            ->get(['id', 'code', 'name', 'price']);
+
+        return $products;
+    }
+
+    /**
      * Returns a list of recommended products
      * @return array <p>Array with goods</p>
      */
