@@ -26,6 +26,9 @@ Route::match(['get', 'post'], 'cart/delete/{id}', 'CartController@actionDelete')
 Route::match(['get', 'post'], 'cart/add/{id}', 'CartController@actionAdd')->where('id', '[0-9]+');
 Route::match(['get', 'post'], 'cart/addAjax/{id}', 'CartController@actionAddAjax')->where('id', '[0-9]+');
 Route::match(['get', 'post'], 'cart', 'CartController@actionIndex');
+//Cabinet
+Route::match(['get', 'post'], 'cabinet/edit', 'CabinetController@actionEdit');
+Route::match(['get', 'post'], 'cabinet', 'CabinetController@actionIndex');
 //About store
 Route::match(['get', 'post'], 'contacts', 'SiteController@actionContact');
 Route::match(['get', 'post'], 'about', 'SiteController@actionAbout');
