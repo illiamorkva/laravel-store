@@ -29,6 +29,13 @@ Route::match(['get', 'post'], 'cart', 'CartController@actionIndex');
 //Cabinet
 Route::match(['get', 'post'], 'cabinet/edit', 'CabinetController@actionEdit');
 Route::match(['get', 'post'], 'cabinet', 'CabinetController@actionIndex');
+//Manage Product
+Route::match(['get', 'post'], 'admin/product/create', 'AdminProductController@actionCreate');
+Route::match(['get', 'post'], 'admin/product/update/{id}', 'AdminProductController@actionUpdate')->where('id', '[0-9]+');
+Route::match(['get', 'post'], 'admin/product/delete/{id}', 'AdminProductController@actionDelete')->where('id', '[0-9]+');
+Route::match(['get', 'post'], 'admin/product', 'AdminProductController@actionIndex');
+//Admin Panel
+Route::match(['get', 'post'], 'admin', 'AdminController@actionIndex');
 //About store
 Route::match(['get', 'post'], 'contacts', 'SiteController@actionContact');
 Route::match(['get', 'post'], 'about', 'SiteController@actionAbout');
