@@ -101,7 +101,7 @@ class ProductRepository
      * Return a list of products
      * @return array <p>Array with goods</p>
      */
-    public static function getProductsList()
+    public function getProductsList()
     {
         $productsList = Product::orderBy('id', 'asc')
             ->get(['id', 'name', 'price', 'code']);
