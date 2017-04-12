@@ -19,4 +19,17 @@ class CategoryRepository
 
         return $categoryList;
     }
+
+    /**
+     * Returns an array of the categories list in the admin panel <br/>
+     * (in this case, the result get enabled and disabled category)
+     * @return array <p>An array of the categories</p>
+     */
+    public function getCategoriesListAdmin()
+    {
+        $categoryList = Category::orderBy('sort_order', 'asc')
+            ->get(['id', 'name', 'sort_order', 'status']);
+
+        return $categoryList;
+    }
 }
