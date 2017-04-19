@@ -135,4 +135,20 @@ class AdminProductController extends Controller
             'id' => $id
         ]);
     }
+
+    /**
+     * Action for page "Delete product"
+     */
+    public function actionDelete(Request $request, $id)
+    {
+        if ($request->isMethod('post')) {
+
+            $this->productRepository->getProductById($id)->delete();
+
+            return redirect("/admin/product");
+        }
+        return view('admin_product.delete', [
+            'id' => $id
+        ]);
+    }
 }
