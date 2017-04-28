@@ -32,4 +32,32 @@ class CategoryRepository
 
         return $categoryList;
     }
+
+    /**
+     * Returns category with specified id
+     * @param integer $id <p>Id category</p>
+     * @return array <p>Object of information about the category</p>
+     */
+    public function getCategoryById($id)
+    {
+        return Category::findOrFail($id);
+    }
+
+    /**
+     * Returns text explanation of status category :<br/>
+     * <i>0 - Hidden, 1 - Displayed</i>
+     * @param integer $status <p>Status</p>
+     * @return string <p>Text explanation</p>
+     */
+    public static function getStatusText($status)
+    {
+        switch ($status) {
+            case '1':
+                return 'Отображается';
+                break;
+            case '0':
+                return 'Скрыта';
+                break;
+        }
+    }
 }
