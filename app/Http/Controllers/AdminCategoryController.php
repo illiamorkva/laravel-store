@@ -85,4 +85,20 @@ class AdminCategoryController extends Controller
             'category' => $category
         ]);
     }
+
+    /**
+     * Action for page "Delete category"
+     */
+    public function actionDelete(Request $request, $id)
+    {
+        if ($request->isMethod('post')) {
+
+            $this->categoryRepository->getCategoryById($id)->delete();
+
+            return redirect("/admin/category");
+        }
+        return view('admin_category.delete', [
+            'id' => $id
+        ]);
+    }
 }
