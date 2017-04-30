@@ -45,7 +45,7 @@ class AdminCategoryController extends Controller
 
             $this->validate($request, [
                 'name' => 'required',
-                'sort_order' => 'required|min:1|numeric',
+                'sort_order' => 'required|min:1|max:100|numeric',
             ]);
 
             $category = new Category();
@@ -54,8 +54,35 @@ class AdminCategoryController extends Controller
             $category->status = $request->input('status');
             $category->save();
 
-            return redirect("admin/category");
+            return redirect("/admin/category");
         }
         return view('admin_category.create');
+    }
+
+    /**
+     * Action for page "Update category"
+     */
+    public function actionUpdate(Request $request, $id)
+    {
+        // Get data about current category
+        $category = $this->categoryRepository->getCategoryById($id);
+
+        if ($request->isMethod('post')) {
+
+            $this->validate($request, [
+                'name' => 'required',
+                'sort_order' => 'required|min:1|max:100|numeric',
+            ]);
+
+            $category->name = $request->input('name');
+            $category->sort_order = $request->input('sort_order');
+            $category->status = $request->input('status');
+            $category->save();
+
+            return redirect("/admin/category");
+        }
+        return view('admin_category.update', [
+            'category' => $category
+        ]);
     }
 }
