@@ -39,6 +39,11 @@ Route::match(['get', 'post'], 'admin/category/create', 'AdminCategoryController@
 Route::match(['get', 'post'], 'admin/category/update/{id}', 'AdminCategoryController@actionUpdate')->where('id', '[0-9]+');
 Route::match(['get', 'post'], 'admin/category/delete/{id}', 'AdminCategoryController@actionDelete')->where('id', '[0-9]+');
 Route::match(['get', 'post'], 'admin/category', 'AdminCategoryController@actionIndex');
+//Manage Orders
+Route::match(['get', 'post'], 'admin/order/update/{id}', 'AdminOrderController@actionUpdate')->where('id', '[0-9]+');
+Route::match(['get', 'post'], 'admin/order/delete/{id}', 'AdminOrderController@actionDelete')->where('id', '[0-9]+');
+Route::match(['get', 'post'], 'admin/order/view/{id}', 'AdminOrderController@actionView')->where('id', '[0-9]+');
+Route::match(['get', 'post'], 'admin/order', 'AdminOrderController@actionIndex');
 //Admin Panel
 Route::match(['get', 'post'], 'admin', 'AdminController@actionIndex');
 //About store
