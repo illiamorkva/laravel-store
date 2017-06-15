@@ -98,6 +98,18 @@ class ProductRepository
     }
 
     /**
+     * Return a list of products
+     * @return array <p>Array with goods</p>
+     */
+    public function getProductsList()
+    {
+        $productsList = Product::orderBy('id', 'asc')
+            ->get(['id', 'name', 'price', 'code']);
+
+        return $productsList;
+    }
+
+    /**
      * Returns text explanation of the availability of goods:<br/>
      * <i>0 - Under the order, 1 - In stock</i>
      * @param integer $availability <p>Status</p>
