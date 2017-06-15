@@ -41,4 +41,14 @@ class OrderRepository
                 break;
         }
     }
+
+    /**
+     * Returns order with specified id
+     * @param integer $id <p>Id order</p>
+     * @return array <p>Object of information about the order</p>
+     */
+    public function getOrderById($id)
+    {
+        return Order::findOrFail($id);
+    }
 }
