@@ -87,4 +87,20 @@ class AdminOrderController extends Controller
             'products' => $products
         ]);
     }
+
+    /**
+     * Action for page "Delete order"
+     */
+    public function actionDelete(Request $request, $id)
+    {
+        if ($request->isMethod('post')) {
+
+            $this->orderRepository->getOrderById($id)->delete();
+
+            return redirect("/admin/order");
+        }
+        return view('admin_order.delete', [
+            'id' => $id
+        ]);
+    }
 }
