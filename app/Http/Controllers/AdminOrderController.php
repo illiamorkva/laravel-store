@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\OrderRepository;
+use App\Repositories\ProductRepository;
 use Illuminate\Http\Request;
 
 class AdminOrderController extends Controller
@@ -14,12 +15,19 @@ class AdminOrderController extends Controller
      */
     protected $orderRepository;
 
+    /**
+     * Instance ProductRepository.
+     *
+     * @var ProductRepository
+     */
+    protected $productRepository;
 
-    public function __construct(OrderRepository $orderRepository)
+    public function __construct(OrderRepository $orderRepository, ProductRepository $productRepository)
     {
         $this->middleware(['auth','role:admin']);
 
         $this->orderRepository = $orderRepository;
+        $this->productRepository = $productRepository;
     }
 
     /**
@@ -57,6 +65,26 @@ class AdminOrderController extends Controller
         return view('admin_order.update', [
             'order' => $order,
             'id' => $id
+        ]);
+    }
+
+    /**
+     * Action for page "View order"
+     */
+    public function actionView($id)
+    {
+        // Get data about current order
+        $order = $this->orderRepository->getOrderById($id);
+
+        // Get an array with identifiers and amount of goods
+        $productsQuantity = json_decode($order->products, true);
+
+        $productsIds = array_keys($productsQuantity);
+        $products = $this->productRepository->getProductsByIds($productsIds);
+
+        return view('admin_order.view', [
+            'productsQuantity' => $productsQuantity, 'order' => $order,
+            'products' => $products
         ]);
     }
 }
