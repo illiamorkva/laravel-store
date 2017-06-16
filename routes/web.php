@@ -52,4 +52,4 @@ Route::match(['get', 'post'], 'about', 'SiteController@actionAbout');
 //Main page
 Route::match(['get', 'post'], '/', 'SiteController@actionIndex');
 
-Route::get('/home', 'HomeController@index');
+
