@@ -46,10 +46,12 @@ Route::match(['get', 'post'], 'admin/order/view/{id}', 'AdminOrderController@act
 Route::match(['get', 'post'], 'admin/order', 'AdminOrderController@actionIndex');
 //Admin Panel
 Route::match(['get', 'post'], 'admin', 'AdminController@actionIndex');
+//Search
+Route::match(['get'], 'search', 'SearchController@actionSearch');
 //About store
 Route::match(['get', 'post'], 'contacts', 'SiteController@actionContact');
 Route::match(['get', 'post'], 'about', 'SiteController@actionAbout');
 //Main page
 Route::match(['get', 'post'], '/', 'SiteController@actionIndex');
 
-Route::get('/home', 'HomeController@index');
+
