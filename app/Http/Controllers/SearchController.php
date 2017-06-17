@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Components\Elastic;
-use App\Models\Product;
 use App\Repositories\CategoryRepository;
 use App\Repositories\ElasticSearchRepository;
-use App\Repositories\ProductRepository;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
@@ -19,13 +17,6 @@ class SearchController extends Controller
     protected $categoryRepository;
 
     /**
-     * Instance ProductRepository.
-     *
-     * @var ProductRepository
-     */
-    protected $productRepository;
-
-    /**
      * Instance ElasticSearchRepository.
      *
      * @var ElasticSearchRepository
@@ -33,11 +24,9 @@ class SearchController extends Controller
     protected $elasticSearchRepository;
 
 
-    public function __construct(CategoryRepository $categoryRepository, ProductRepository $productRepository,
-                                ElasticSearchRepository $elasticSearchRepository)
+    public function __construct(CategoryRepository $categoryRepository, ElasticSearchRepository $elasticSearchRepository)
     {
         $this->categoryRepository = $categoryRepository;
-        $this->productRepository = $productRepository;
         $this->elasticSearchRepository = $elasticSearchRepository;
     }
 
