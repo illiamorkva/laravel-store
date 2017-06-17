@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Components\Elastic;
 use App\Models\Product;
 use App\Repositories\CategoryRepository;
+use App\Repositories\ElasticSearchRepository;
 use App\Repositories\ProductRepository;
 use Illuminate\Http\Request;
 
@@ -24,11 +25,20 @@ class SearchController extends Controller
      */
     protected $productRepository;
 
+    /**
+     * Instance ElasticSearchRepository.
+     *
+     * @var ElasticSearchRepository
+     */
+    protected $elasticSearchRepository;
 
-    public function __construct(CategoryRepository $categoryRepository, ProductRepository $productRepository)
+
+    public function __construct(CategoryRepository $categoryRepository, ProductRepository $productRepository,
+                                ElasticSearchRepository $elasticSearchRepository)
     {
         $this->categoryRepository = $categoryRepository;
         $this->productRepository = $productRepository;
+        $this->elasticSearchRepository = $elasticSearchRepository;
     }
 
     /**
@@ -36,60 +46,21 @@ class SearchController extends Controller
      */
     public function actionSearch(Request $request, Elastic $elastic)
     {
+        $countSearchedProducts = 0;
+        $searchedProducts = array();
+        $searchedString = $request->input('query');
 
-        $searchString = $request->input('query');
-
-        if(!isset($searchString)){
-            $searchString = "";
+        if(isset($searchedString)) {
+            $searchedProducts = $this->elasticSearchRepository->getProductsListByElasticSearch($searchedString, $elastic);
+            $countSearchedProducts = count($searchedProducts);
         }
-
-        $query = [
-            'multi_match' => [
-                'query' => $searchString,
-                'fuzziness' => 'AUTO',
-                'fields' => ['name', 'description'],
-            ],
-        ];
-
-        $parameters = [
-            'index' => 'store',
-            'type' => 'products',
-            'body' => [
-                'query' => $query
-            ]
-        ];
-
-        $response = $elastic->search($parameters);
-
-        /**
-         * The data comes in a structure like this:
-         *
-         * [
-         *      'hits' => [
-         *          'hits' => [
-         *              [ '_source' => 1 ],
-         *              [ '_source' => 2 ],
-         *          ]
-         *      ]
-         * ]
-         *
-         * And we only care about the _source of the documents.
-         */
-
-        $sources = array_pluck($response['hits']['hits'], '_source') ?: [];
-
-        //We have to convert the results array into Eloquent Models
-        $searchProducts = Product::hydrate($sources);
-
-        //Count searched products
-        $total = count($searchProducts);
 
         //List of categories for the left menu
         $categories = $this->categoryRepository->getCategoriesList();
 
         return view('search.search', [
-            'categories'=> $categories, 'searchProducts'=> $searchProducts,
-            'total' => $total, 'searchString' => $searchString
+            'categories'=> $categories, 'searchedProducts'=> $searchedProducts,
+            'countSearchedProducts' => $countSearchedProducts, 'searchedString' => $searchedString
         ]);
     }
 }

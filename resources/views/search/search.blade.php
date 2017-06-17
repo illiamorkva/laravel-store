@@ -25,13 +25,13 @@
 
                 <div class="col-sm-9 padding-right">
                     <div class="features_items"><!--features_items-->
-                        <?php if($total > 0): ?>
-                        <h2 class="title text-center">Результат поиска: <?php echo $searchString; ?></h2>
+                        <?php if($countSearchedProducts > 0): ?>
+                        <h2 class="title text-center">Результат поиска: <?php echo $searchedString; ?></h2>
                         <?php else: ?>
                         <h2 class="title text-center">Результаты не соответсвуют условиям поиска</h2>
                          <?php endif; ?>
 
-                        <?php foreach ($searchProducts as $product): ?>
+                        <?php foreach ($searchedProducts as $product): ?>
                         <div class="col-sm-4">
                             <div class="product-image-wrapper">
                                 <div class="single-products">
